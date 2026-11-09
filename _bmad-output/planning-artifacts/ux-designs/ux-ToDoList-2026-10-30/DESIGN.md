@@ -85,7 +85,7 @@ components:
 
 ## Brand & Style
 
-A plain, working tool. Nothing is decorative. Areas are separated by a thin line or a small shift in background tone, never by shadow or gradient. Buttons and links are words ("Add", "Sign In"), and icons appear only where an icon is truly the clearest way to say something. The one place that is, is the item state. The app is dark first. The look is expected to be replaceable with other themes later (web CSS swap, decided in architecture), so every value here is a named token.
+A plain, working tool. Nothing is decorative. Areas are separated by a thin line or a small shift in background tone, never by shadow or gradient. Buttons and links are words ("Add", "Sign In"), and icons appear only where an icon is truly the clearest way to say something. The one place that is, is the item state. The app is dark first. On the web, every value here is a CSS variable in a token sheet. Component styles use the variables. A later theme is another token sheet. Project 1 ships the dark sheet only. MAUI uses the same token names and the dark theme only.
 
 ## Colors
 

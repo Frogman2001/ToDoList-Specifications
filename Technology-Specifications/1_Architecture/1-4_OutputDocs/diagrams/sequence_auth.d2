@@ -1,0 +1,26 @@
+shape: sequence_diagram
+
+title: Google sign-in {
+  near: top-center
+  shape: text
+  style.font-size: 20
+}
+
+person: Person
+client: Web or Android
+google: Google
+api: Function App
+cosmos: Cosmos
+
+person -> client: Sign in
+client -> google: Google account
+google -> client: ID token
+client -> api: Authorization Bearer token
+api -> api: Check signature, audience, and sub
+api -> cosmos: Read or create the account document
+cosmos -> api: Account
+api -> cosmos: Read the items in this partition
+cosmos -> api: Items
+api -> client: That person's items
+person -> client: Sign out
+client -> client: Discard this client's token

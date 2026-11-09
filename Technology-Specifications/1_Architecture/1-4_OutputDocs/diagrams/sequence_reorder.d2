@@ -1,0 +1,21 @@
+shape: sequence_diagram
+
+title: Reorder {
+  near: top-center
+  shape: text
+  style.font-size: 20
+}
+
+person: Person
+client: Web or Android
+api: Function App
+cosmos: Cosmos
+
+person -> client: Drag an item
+client -> client: Renumber positions on the affected dates
+client -> api: POST /items/changes, each item with its etag
+api -> api: Check the token. Reject if any etag is missing
+api -> cosmos: Write every listed item, or none
+cosmos -> api: Stored
+api -> client: The saved items and new etags
+client -> client: Show the new order

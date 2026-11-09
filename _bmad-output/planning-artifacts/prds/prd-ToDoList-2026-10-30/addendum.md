@@ -2,16 +2,22 @@
 
 Technical-how and rationale that does not belong in the PRD's requirements.
 
-## Technology intent (not decided; for architecture)
+## Technology intent (decided in architecture)
 
-- **Mobile:** Android is required. .NET MAUI is the intended framework: the author has never built with it, and it may allow an iOS app later. Treat as a learning goal alongside a product goal.
-- **Hosting:** Azure intended, not required.
-- **Shape:** one back end, two front ends (web and mobile).
+- **Mobile:** .NET MAUI on Android. iOS is not in project 1. MAUI remains a learning goal.
+- **Web:** React.
+- **Hosting:** Azure. The API is a Function App that scales to zero when idle.
+- **Shape:** one back end, two front ends (web and Android). Both clients call the API.
 
-## Data store intent (not decided; for architecture)
+## Data store intent
 
-- Document database. Proposed shape: a User document, and a document for the user's items. Architecture to decide whether items are embedded in one document or stored as separate documents (growth, per-item reorder writes, and query by due date matter here).
+- Cosmos DB, on the free tier (provisioned throughput). An account document holds the user and future account settings. Each item is its own document, so completed items do not accumulate inside one document. Each document has a schema version: reads translate older versions to the current one, and saves write the current version. A save sends the document's Cosmos etag so a stale write is rejected. The client snaps back and reloads, for an account document and for an item.
 - Position is per due date, so reordering and rescheduling only touch the affected dates' items.
+
+## Field limits and errors (decided in architecture)
+
+- Description is required, trimmed, 1 to 200 characters. Detail is optional, up to 2,000 characters. Dates cross the API as `YYYY-MM-DD`. Those rules live in one shared contract. Each client checks them before sending, and the API checks them again.
+- A failed request returns problem-details. A validation failure names the field. A stale etag is a conflict, and the client snaps back and reloads. A server failure or no response uses the words `Error reaching server`. The body does not include exception text.
 
 ## Implementation guidance (from the author; not requirements)
 
@@ -21,4 +27,4 @@ Technical-how and rationale that does not belong in the PRD's requirements.
 ## Date handling (for architecture)
 
 - "Today" comes from the client device (phone date on Android, browser date on web), so the back end should store due and completed dates as plain calendar dates with no time zone, and the clients should compute Today, week, and ordering the same way.
-- Midnight rollover while the app is open is not specified; architecture to decide.
+- While the app is open, Today stays as loaded. The client recomputes Today when the app returns to the foreground. Hide completed is stored on the device, with no server call.

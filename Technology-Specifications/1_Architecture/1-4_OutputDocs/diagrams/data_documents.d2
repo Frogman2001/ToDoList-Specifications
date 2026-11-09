@@ -1,0 +1,37 @@
+direction: down
+
+title: Documents for one person {
+  near: top-center
+  shape: text
+  style.font-size: 20
+}
+
+partition: Partition userId = Google sub {
+  account: account {
+    shape: page
+    id: id = account
+    type: type = account
+    version: schemaVersion = 1
+    etag: _etag
+    fields: Google sub, later settings
+  }
+  openItem: item {
+    shape: page
+    id: id = server GUID
+    type: type = item
+    version: schemaVersion = 1
+    etag: _etag
+    fields: description, state, detail\ndue date, completed date, position
+  }
+  doneItem: item {
+    shape: page
+    label: another item\nincluding completed ones
+  }
+}
+
+read: Read path {
+  shape: text
+  label: The API returns every item in the partition.\nThe client computes Today, week, and order.
+}
+
+partition -> read

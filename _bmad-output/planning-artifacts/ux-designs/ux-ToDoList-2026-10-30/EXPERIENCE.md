@@ -18,7 +18,7 @@ Two surfaces on one back end, with the same functionality except where noted:
 - **Android app** (phone, portrait and landscape; small tablet). Opens on Add new.
 - **Web app** (desktop browsers at a full keyboard, and narrower windows). Opens on the week view containing today.
 
-No UI system is named; each surface follows its platform's conventions for system gestures and text size. Dark is the first theme. Themes are swappable later on the web (architecture), so no visual value is hard-coded in behavior.
+No UI system is named; each surface follows its platform's conventions for system gestures and text size. Dark is the first theme. On the web, colors live in a token stylesheet of CSS variables, and a later theme swaps that sheet. Project 1 ships the dark theme only. No visual value is hard-coded in behavior.
 
 ## Information Architecture
 
@@ -61,7 +61,7 @@ Visual specs live in `DESIGN.md`.
 | Description box | The placeholder disappears on click (web) or when typing starts (phone; may need a tap first). Stays and clears after each add so several items can go in. Empty descriptions are not added. |
 | Date field | Opens a calendar picker showing the full month, weeks starting Monday. Also accepts typing: digits only (punctuation is added), or digits separated by slashes or dashes. Echoes the understood date below the field as you type. Defaults to today, or to the day it was reached from. Month comes before day; the year defaults to the current one. |
 | State box | Empty = to do, dot = in progress, check = done. On the phone, tapping it opens a choice of the three states; double-tapping the item advances the state. |
-| Hide completed | Top bar link in any view. Persistence across views and restarts is left to the build. |
+| Hide completed | Top bar link in any view. The choice is stored on the device and applies across views and restarts. It does not call the server. |
 
 ## State Patterns
 

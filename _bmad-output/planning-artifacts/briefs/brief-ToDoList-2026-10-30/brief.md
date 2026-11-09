@@ -2,7 +2,7 @@
 title: "Product Brief: ToDoList"
 status: complete
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-04
 ---
 
 # Product Brief: ToDoList
@@ -73,9 +73,9 @@ Project 1, as scoped below, is complete and deployed to production. Building and
 - It is a hobby, so perfection is not expected early.
 - No formal feature cap. The author removes anything that annoys them.
 
-## Technical Direction (intent, not decided)
+## Technical Direction
 
-Azure hosting is intended, not required. One back end serves two separate front ends, a deliberate engineering challenge. Detail belongs in the architecture.
+Azure is the host. One back end serves two front ends: a React web app and a .NET MAUI Android app. Persistence is Cosmos DB. The data shape is decided in the architecture.
 
 ## Vision
 
