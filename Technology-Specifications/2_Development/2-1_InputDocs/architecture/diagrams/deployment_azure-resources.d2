@@ -1,0 +1,43 @@
+direction: right
+
+title: ToDoList Azure resources {
+  near: top-center
+  shape: text
+  style.font-size: 20
+}
+
+state: Terraform state {
+  account: Storage account
+  blob: container tfstate {
+    shape: cylinder
+  }
+  account -> blob: versioned blob
+}
+
+prod: Production resource group {
+  swa: Static Web App
+  cosmos: Cosmos DB {
+    shape: cylinder
+  }
+  host: Function host {
+    identity: User-assigned identity
+    storage: Storage account
+    package: container app-package {
+      shape: cylinder
+    }
+    plan: Flex Consumption plan
+    func: Function App
+    func -> identity: uses
+    func -> package: runs the zip
+    identity -> storage: storage data roles
+  }
+}
+
+prod.host.identity -> prod.cosmos: Data Contributor
+
+metrics: Platform metrics {
+  shape: text
+}
+
+prod.host.func -> metrics: executions
+prod.cosmos -> metrics: request units

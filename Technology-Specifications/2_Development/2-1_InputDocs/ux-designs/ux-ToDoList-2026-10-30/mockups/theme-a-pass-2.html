@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ToDoList - theme A, pass 2</title>
+<style>
+  /* Theme A (dark). Hex values:
+     bg #14181a  surface #1c2224  line #2c3639  text #e6ece9  muted/done #8a9892  accent #5fb386 */
+  :root { --bg:#14181a; --surface:#1c2224; --line:#2c3639; --text:#e6ece9; --muted:#8a9892; --accent:#5fb386; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px; background: #0b0c0d; color: #ccc; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 36px 0 6px; color: #ddd; }
+  p.note { margin: 0 0 16px; color: #9aa; font-size: 14px; max-width: 780px; }
+  .row-of { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+
+  .app { background: var(--bg); color: var(--text); }
+  .phone { width: 360px; border: 2px solid #333; border-radius: 14px; padding: 14px; }
+  .web { width: 980px; border: 2px solid #333; border-radius: 6px; padding: 14px; }
+  .bar { display: flex; align-items: center; gap: 18px; padding: 0 2px 14px; font-size: 15px; color: var(--muted); }
+  .bar b { color: var(--text); font-weight: 600; }
+  .bar .link { color: var(--accent); }
+
+  .day { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; }
+  .dayhead { padding: 14px 16px; border-bottom: 1px solid var(--line); font-size: 16px; font-weight: 600; }
+  .dayhead.today { color: var(--accent); }
+  .row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-bottom: 1px solid var(--line); min-height: 52px; font-size: 16px; }
+  .row.done { color: var(--muted); }
+  .row.picked { outline: 2px solid var(--accent); outline-offset: -2px; background: #212a2c; }
+  .row.sel { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .addrow { padding: 12px 16px; }
+  .btn { display: inline-block; padding: 10px 18px; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; font-size: 15px; }
+  .btn.solid { background: var(--accent); color: #0e1412; font-weight: 600; }
+  .empty { padding: 28px 16px; color: var(--muted); font-size: 14px; }
+
+  /* state markers: box always present */
+  .m { display: inline-block; width: 22px; height: 22px; flex: none; position: relative; border: 2px solid currentColor; border-radius: 4px; }
+  .m.prog::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: currentColor; }
+  .m.done::after { content: ""; position: absolute; left: 6px; top: 1px; width: 6px; height: 12px; border: solid currentColor; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+
+  .cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .popup { width: 340px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 16px; box-shadow: 0 0 0 1px #000; }
+  .popup h3 { margin: 0 0 12px; font-size: 15px; }
+  .field { display: block; margin-bottom: 12px; font-size: 13px; color: var(--muted); }
+  .field span { display: block; margin-bottom: 4px; }
+  .input { display: block; padding: 11px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--text); font-size: 16px; min-height: 44px; }
+  .input.ph { color: var(--muted); }
+  .input.focus { border-color: var(--accent); outline: 1px solid var(--accent); }
+  .reads { margin-top: 4px; font-size: 13px; color: var(--muted); }
+  .actions { display: flex; gap: 12px; margin-top: 4px; }
+  .legend { background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 16px; color: var(--text); width: 330px; }
+  .legend .row { padding: 12px 0; min-height: 0; }
+  .legend .row:last-child { border-bottom: 0; }
+  .legend small { color: var(--muted); margin-left: auto; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<h1>ToDoList: theme A (dark), pass 2</h1>
+<p class="note">Changes from pass 1: every state keeps its box (empty, dot, check). Done items change only their text color (medium gray, #8a9892); no background change and no strike-through. Section headers are dates: overdue items sit under their own due date, today's under today's date, so there is no "Overdue" label, no "Today" label, and no date on the right. Today's date is the only accent-colored header.</p>
+
+<h2>1. Phone: Today view</h2>
+<div class="row-of">
+
+  <div class="app phone">
+    <div class="bar"><b>Today</b><span class="link">Week</span></div>
+    <div class="day">
+      <div class="dayhead">Wed Oct 28</div>
+      <div class="row"><span class="m"></span><span>Return library books</span></div>
+      <div class="row"><span class="m prog"></span><span>Renew car registration</span></div>
+      <div class="dayhead" style="border-top:1px solid var(--line)">Thu Oct 29</div>
+      <div class="row"><span class="m"></span><span>Pick up dry cleaning</span></div>
+      <div class="dayhead today" style="border-top:1px solid var(--line)">Fri Oct 30</div>
+      <div class="row"><span class="m prog"></span><span>Call plumber</span></div>
+      <div class="row"><span class="m"></span><span>Email landlord</span></div>
+      <div class="row done"><span class="m done"></span><span>Buy milk</span></div>
+      <div class="addrow"><span class="btn">Add</span></div>
+    </div>
+  </div>
+
+  <div class="app phone">
+    <div class="bar"><b>Day</b><span class="link">Today</span><span class="link">Pick date</span></div>
+    <div class="day">
+      <div class="dayhead">Sat Oct 31</div>
+      <div class="addrow"><span class="input ph">Add description...</span></div>
+      <div class="addrow" style="padding-top:0"><span class="btn">Add</span></div>
+    </div>
+    <p class="note" style="margin-top:14px;font-size:13px">An empty day shows the description box instead of "Nothing here." The placeholder clears when you start typing. [assumption: this replaces the empty-day text on the phone]</p>
+  </div>
+
+  <div class="app phone">
+    <div class="bar"><b>Add new</b></div>
+    <div class="day">
+      <div class="addrow"><label class="field"><span>Date</span><span class="input">Fri Oct 30</span></label></div>
+      <div class="addrow" style="padding-top:0"><span class="input ph focus" style="min-height:120px">Add description...</span></div>
+      <div class="addrow"><span class="btn solid">Add</span></div>
+    </div>
+    <p class="note" style="margin-top:14px;font-size:13px">Opening screen on the phone. The description is a text area, not floating text. The box stays and clears after each add.</p>
+  </div>
+
+  <div class="app phone">
+    <div class="bar"><b>Day</b><span class="link">Today</span><span class="link">Pick date</span></div>
+    <div class="day">
+      <div class="dayhead today">Fri Oct 30</div>
+      <div class="row picked"><span class="m prog"></span><span>Call plumber</span></div>
+      <div class="row"><span class="m"></span><span>Email landlord</span></div>
+      <div class="row done"><span class="m done"></span><span>Buy milk</span></div>
+    </div>
+    <p class="note" style="margin-top:14px;font-size:13px">Picked-up item (tap-hold): outlined and slightly raised in tone. Swipe moves it one day.</p>
+  </div>
+
+</div>
+
+<h2>2. Web: week view</h2>
+<div class="app web">
+  <div class="bar"><span class="link">Previous</span><b>Oct 26 - Nov 1</b><span class="link">Next</span><span class="link">Today</span><span class="link">Hide completed</span><span class="link">Shortcuts</span></div>
+  <div class="cols" style="grid-template-columns:repeat(7,1fr);gap:10px">
+    <div class="day"><div class="dayhead">Mon Oct 26</div>
+      <div class="row done"><span class="m done"></span><span>Pay rent</span></div>
+      <div class="addrow"><span class="btn">Add</span></div></div>
+    <div class="day"><div class="dayhead">Tue Oct 27</div>
+      <div class="row done"><span class="m done"></span><span>Dentist</span></div>
+      <div class="addrow"><span class="btn">Add</span></div></div>
+    <div class="day"><div class="dayhead">Wed Oct 28</div>
+      <div class="row"><span class="m"></span><span>Return books</span></div>
+      <div class="addrow"><span class="btn">Add</span></div></div>
+    <div class="day"><div class="dayhead">Thu Oct 29</div>
+      <div class="row"><span class="m"></span><span>Dry cleaning</span></div>
+      <div class="addrow"><span class="btn">Add</span></div></div>
+    <div class="day"><div class="dayhead today">Fri Oct 30</div>
+      <div class="row sel"><span class="m prog"></span><span>Call plumber</span></div>
+      <div class="row"><span class="m"></span><span>Email landlord</span></div>
+      <div class="row done"><span class="m done"></span><span>Buy milk</span></div>
+      <div class="addrow"><span class="btn">Add</span></div></div>
+    <div class="day"><div class="dayhead">Sat Oct 31</div>
+      <div class="empty">Nothing here.</div>
+      <div class="addrow"><span class="btn">Add</span></div></div>
+    <div class="day"><div class="dayhead">Sun Nov 1</div>
+      <div class="empty">Nothing here.</div>
+      <div class="addrow"><span class="btn">Add</span></div></div>
+  </div>
+  <p class="note" style="margin-top:12px;font-size:13px">Selected item (keyboard focus) has a thin accent outline. Words, not icons, in the top bar.</p>
+</div>
+
+<h2>3. Add popup and date entry</h2>
+<div class="row-of">
+  <div class="app" style="padding:20px;border:2px solid #333;border-radius:6px">
+    <div class="popup">
+      <h3>New item, Fri Oct 30</h3>
+      <label class="field"><span class="input ph focus">Add description...</span></label>
+      <label class="field"><span>Date</span><span class="input">11/05</span>
+        <span class="reads">Thu Nov 5</span></label>
+      <div class="actions"><span class="btn solid">Add</span><span class="btn">Cancel</span></div>
+    </div>
+  </div>
+  <div class="legend">
+    <h3 style="margin:0 0 8px;font-size:15px">State markers</h3>
+    <div class="row"><span class="m"></span><span>To do</span><small>empty box</small></div>
+    <div class="row"><span class="m prog"></span><span>In progress</span><small>box with a dot</small></div>
+    <div class="row done"><span class="m done"></span><span>Done</span><small>box with a check, gray text</small></div>
+  </div>
+</div>
+<p class="note" style="margin-top:12px">The date field shows what was understood ("Thu Nov 5") as you type, so you can catch a mistake without a popup. Typing 1105, 11/05, or 11-5 all give the same date. [assumption: month before day; year defaults to the current one]</p>
+
+</body>
+</html>

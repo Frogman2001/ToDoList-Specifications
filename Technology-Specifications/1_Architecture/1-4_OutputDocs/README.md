@@ -4,7 +4,7 @@ Finished architecture deliverables. See [Architecture](../README.md) for this ph
 
 ## What to put here
 
-The completed architecture document, and any other finished artifact the architecture workflow produced for later phases to consume. That includes [epics.md](epics.md), the accepted epics handoff. Development is the next reader. QA may also copy from here when it needs the architecture directly.
+The completed architecture document, and any other finished artifact the architecture workflow produced for later phases to consume. That includes [ARCHITECTURE-SPINE.md](ARCHITECTURE-SPINE.md), the finished AD-1 through AD-15 contract, and [epics.md](epics.md), the accepted epics handoff. The projects spine and the file map stay in Working until their assumptions are accepted. Development is the next reader. QA may also copy from here when it needs the architecture directly.
 
 ## What not to do
 

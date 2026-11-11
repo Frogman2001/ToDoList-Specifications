@@ -1,6 +1,6 @@
 # ToDoList project 1 — Architecture
 
-The build contract is the spine in `1-3_Working/architecture-ToDoList-2026-11-04/ARCHITECTURE-SPINE.md`. Rule ids there (AD-1 through AD-15) are stable. This document is the one to read: technologies, patterns, code quality, deployment, and the diagrams. The Terraform layout is in [terraform.md](terraform.md).
+The build contract for AD-1 through AD-15 is [ARCHITECTURE-SPINE.md](ARCHITECTURE-SPINE.md) in this folder. Those rule ids are stable. This document is the one to read for technologies, patterns, code quality, deployment, and the diagrams. The Terraform layout is in [terraform.md](terraform.md). AD-16 through AD-21 and the file map are still a draft in `1-3_Working/architecture-ToDoList-projects-2026-11-06/`. Until that draft is accepted, the Notes in [epics.md](epics.md) are the handoff for those rules.
 
 Project 1 is a hobby app for a few people, built to a professional standard. The server stores facts. The web app and the Android app compute what those facts mean for today.
 

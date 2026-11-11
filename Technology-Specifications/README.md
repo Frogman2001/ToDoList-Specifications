@@ -6,7 +6,7 @@ Three phases run in order. Each phase has the same four stages.
 
 | Phase | Role | Default inputs | Deliverable |
 | --- | --- | --- | --- |
-| [1_Architecture](1_Architecture/README.md) | Architect | PO planning docs | Architecture document and epics handoff |
+| [1_Architecture](1_Architecture/README.md) | Architect | PO planning docs | Architecture document, AD-1 through AD-15 spine, and epics handoff |
 | [2_Development](2_Development/README.md) | Developer | Architecture OutputDocs, plus any earlier source this phase needs | Specs, stories, and plans |
 | [3_QA](3_QA/README.md) | QA | Development OutputDocs, plus Architecture OutputDocs or PO docs when needed | Test plans, cases, and acceptance checks |
 

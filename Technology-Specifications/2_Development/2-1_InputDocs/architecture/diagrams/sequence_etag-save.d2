@@ -1,0 +1,26 @@
+shape: sequence_diagram
+
+title: A save that loses the etag {
+  near: top-center
+  shape: text
+  style.font-size: 20
+}
+
+phone: Android
+web: Web
+api: Function App
+cosmos: Cosmos
+
+phone -> api: Save item and etag A
+api -> cosmos: Replace if etag is A
+cosmos -> api: Stored, etag B
+api -> phone: 200
+web -> api: Save same item and etag A
+api -> cosmos: Replace if etag is A
+cosmos -> api: Rejected
+api -> web: 409 problem-details
+web -> web: Snap the item back
+web -> api: Reload this person's items
+api -> cosmos: Read this person's items
+cosmos -> api: Items, including etag B
+api -> web: Items, including etag B

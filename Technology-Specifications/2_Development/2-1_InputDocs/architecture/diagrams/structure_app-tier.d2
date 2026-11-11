@@ -1,0 +1,89 @@
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+direction: down
+
+title: App tier {
+  near: top-center
+  shape: text
+  style.font-size: 22
+}
+
+board: {
+  label: ""
+  grid-columns: 3
+  grid-gap: 36
+  style.fill: transparent
+  style.stroke: transparent
+
+  web: {
+    label: "web\nVite, React, TypeScript"
+    grid-rows: 3
+    grid-gap: 18
+    check: Checks fields before send { height: 78 }
+    views: Computes Today, week, and order { height: 78 }
+    theme: tokens.css { height: 62 }
+  }
+
+  shared: {
+    label: ""
+    grid-rows: 3
+    grid-gap: 18
+    style.fill: transparent
+    style.stroke: transparent
+    contracts: {
+      shape: page
+      label: contracts/item-fields.json
+      height: 78
+    }
+    examples: {
+      shape: page
+      label: contracts/view-examples.json
+      height: 78
+    }
+    vitest: Vitest { height: 62 }
+  }
+
+  libs: {
+    label: ""
+    grid-rows: 3
+    grid-gap: 18
+    style.fill: transparent
+    style.stroke: transparent
+    core: {
+      label: "ToDoList.Core\nItem rules and schema converters"
+      height: 78
+    }
+    scheduling: {
+      label: "ToDoList.Scheduling\nToday, week, and order"
+      height: 78
+    }
+    tail: {
+      label: ""
+      height: 62
+      style.opacity: 0
+    }
+  }
+}
+
+tests: ToDoList.Tests\nxUnit
+maui: ToDoList.App\n.NET MAUI
+api: ToDoList.Api\nHTTP, Google token, Cosmos
+cosmos: Cosmos { shape: cylinder }
+
+board.web.check -> board.shared.contracts: reads
+board.web.views -> board.shared.examples: reads
+board.shared.vitest -> board.shared.examples: same cases
+board.libs.core -> board.shared.contracts: reads
+board.libs.scheduling -> board.shared.examples: reads
+tests -> board.libs.core
+tests -> board.libs.scheduling
+maui -> board.libs.core
+maui -> board.libs.scheduling
+maui -> api: Function App URL
+board.web -> api: Function App URL
+api -> board.libs.core
+api -> cosmos: only writer

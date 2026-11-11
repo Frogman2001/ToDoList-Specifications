@@ -1,0 +1,46 @@
+direction: right
+
+title: ToDoList deployment and connectivity {
+  near: top-center
+  shape: text
+  style.font-size: 20
+}
+
+google: Google {
+  shape: rectangle
+}
+
+phone: Android app {
+  shape: rectangle
+}
+
+browser: Browser {
+  shape: rectangle
+}
+
+local: Local machine {
+  vite: Vite
+  func: Function App
+  emulator: Cosmos emulator {
+    shape: cylinder
+  }
+  vite -> func: HTTP
+  func -> emulator: HTTPS
+}
+
+prod: Azure production {
+  swa: Static Web App
+  func: Function App
+  cosmos: Cosmos DB {
+    shape: cylinder
+  }
+  func -> cosmos: NoSQL
+}
+
+phone -> google: Sign in
+browser -> google: Sign in
+local.vite -> google: Sign in
+
+phone -> prod.func: HTTPS API
+browser -> prod.swa: Web files
+browser -> prod.func: HTTPS API

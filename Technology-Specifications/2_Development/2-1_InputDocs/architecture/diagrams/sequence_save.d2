@@ -1,0 +1,22 @@
+shape: sequence_diagram
+
+title: Save a new or existing item {
+  near: top-center
+  shape: text
+  style.font-size: 20
+}
+
+person: Person
+client: Web or Android
+api: Function App
+cosmos: Cosmos
+
+person -> client: Add or edit an item
+client -> client: Check the fields
+client -> api: POST /items when new, or PUT with If-Match
+api -> api: Check the token and the fields again
+api -> api: Set id, userId, and schemaVersion
+api -> cosmos: Create the document, or replace it if the etag matches
+cosmos -> api: Stored item and new etag
+api -> client: 201 or 200, with id and etag
+client -> client: Recompute Today, week, and order

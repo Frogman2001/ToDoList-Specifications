@@ -9,7 +9,7 @@ inputDocuments:
   - _bmad-output/planning-artifacts/ux-designs/ux-ToDoList-2026-10-30/EXPERIENCE.md
   - Technology-Specifications/1_Architecture/1-4_OutputDocs/architecture.md
   - Technology-Specifications/1_Architecture/1-4_OutputDocs/terraform.md
-  - Technology-Specifications/1_Architecture/1-3_Working/architecture-ToDoList-2026-11-04/ARCHITECTURE-SPINE.md
+  - Technology-Specifications/1_Architecture/1-4_OutputDocs/ARCHITECTURE-SPINE.md
   - Technology-Specifications/1_Architecture/1-3_Working/architecture-ToDoList-projects-2026-11-06/ARCHITECTURE-SPINE.md
 ---
 
